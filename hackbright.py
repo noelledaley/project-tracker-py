@@ -29,8 +29,13 @@ def make_new_student(first_name, last_name, github):
     Given a first name, last name, and GitHub account, add student to the
     database and print a confirmation message.
     """
-    pass
+    QUERY = """ 
+        INSERT INTO Students VALUES (?, ?, ?)
+        """
+    db_cursor.execute(QUERY, (first_name, last_name, github))
+    db_connection.commit()
 
+    print "%s %s (%s) has been added to the database." % (first_name, last_name, github)
 
 def get_project_by_title(title):
     """Given a project title, print info
