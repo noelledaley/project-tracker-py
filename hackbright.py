@@ -33,7 +33,9 @@ def make_new_student(first_name, last_name, github):
 
 
 def get_project_by_title(title):
-    """Given a project title, print information about the project."""
+    """Given a project title, print info
+
+    mation about the project."""
     
     QUERY = """
         SELECT title, description 
@@ -53,15 +55,20 @@ def get_grade_by_github_title(github, title):
         FROM grades
         WHERE student_github = ? AND project_title = ?
         """
-    db_cursor.execute(QUERY, (student_github, project_title))
+    db_cursor.execute(QUERY, (github, title))
     row = db_cursor.fetchone()
     print "Grade is: %s" % (row[0],)
 
 
 def assign_grade(github, title, grade):
     """Assign a student a grade on an assignment and print a confirmation."""
-    pass
-
+    QUERY = """
+        INSERT INTO Grades(student_github, project_title, grade)
+        VALUES (?,?,?)
+     """
+    db_cursor.execute(QUERY, (github, title, grade))
+    db_connection.commit()
+    print "Assigned %s for %s a grade of %s points." % (github, title, grade)
 
 def handle_input():
     """Main loop.
