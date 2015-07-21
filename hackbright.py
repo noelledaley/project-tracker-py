@@ -38,9 +38,7 @@ def make_new_student(first_name, last_name, github):
     print "%s %s (%s) has been added to the database." % (first_name, last_name, github)
 
 def get_project_by_title(title):
-    """Given a project title, print info
-
-    mation about the project."""
+    """Given a project title, print information about the project."""
     
     QUERY = """
         SELECT title, description 
@@ -96,6 +94,18 @@ def handle_input():
         elif command == "new_student":
             first_name, last_name, github = args   # unpack!
             make_new_student(first_name, last_name, github)
+
+        elif command == "get_project":
+            project = args[0]
+            get_project_by_title(project)
+
+        elif command == "get_grade":
+            github, title = args
+            get_grade_by_github_title(github, title)
+
+        elif command == "assign_grade":
+            github, title, grade = args
+            assign_grade(github, title, grade)
 
 
 if __name__ == "__main__":
